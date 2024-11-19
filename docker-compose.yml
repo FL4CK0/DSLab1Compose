@@ -1,0 +1,26 @@
+services:
+  proxy:
+    image: 767397773839.dkr.ecr.us-east-1.amazonaws.com/ds/lab1:proxy
+    ports:
+      - "${PROXY_PORT:-8081}:${PROXY_PORT:-8081}"
+    environment:
+      - PROXY_PORT=${PROXY_PORT:-8081}
+      - TARGET_ADDRESS=server:${SERVER_PORT:-8080}
+    depends_on:
+      - server
+    networks:
+      - proxy_network
+
+  server:
+    image: 767397773839.dkr.ecr.us-east-1.amazonaws.com/ds/lab1:server
+    ports:
+      - "${SERVER_PORT:-8080}:${SERVER_PORT:-8080}"
+    environment:
+      - SERVER_PORT=${SERVER_PORT:-8080}
+    volumes:
+      - ./uploads:/app/uploads
+    networks:
+      - proxy_network
+networks:
+  proxy_network:
+    driver: bridge  # Here, you define the proxy_network with the bridge driver
