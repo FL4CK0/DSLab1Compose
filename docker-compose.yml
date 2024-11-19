@@ -1,6 +1,6 @@
 services:
   proxy:
-    image: 767397773839.dkr.ecr.us-east-1.amazonaws.com/ds/lab1:proxy
+    image: fl4ck0/distruberadesystem-proxy
     ports:
       - "${PROXY_PORT:-8081}:${PROXY_PORT:-8081}"
     environment:
@@ -12,7 +12,7 @@ services:
       - proxy_network
 
   server:
-    image: 767397773839.dkr.ecr.us-east-1.amazonaws.com/ds/lab1:server
+    image: fl4ck0/distruberadesystem-server
     ports:
       - "${SERVER_PORT:-8080}:${SERVER_PORT:-8080}"
     environment:
